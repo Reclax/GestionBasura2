@@ -1,0 +1,96 @@
+const { REPORT_STATUS, ROUTE_STATUS } = require("../config/constants");
+
+const today = new Date().toISOString().slice(0, 10);
+
+const state = {
+  nextReportId: 5,
+  nextRouteId: 3,
+  drivers: [
+    {
+      id: "drv-1",
+      name: "Luis Mendoza",
+      license: "A-2",
+      phone: "311 445 9012",
+    },
+    { id: "drv-2", name: "Andrea Rios", license: "A-1", phone: "300 112 8804" },
+    { id: "drv-3", name: "Jhon Perez", license: "B-2", phone: "318 776 5401" },
+  ],
+  reports: [
+    {
+      id: 1,
+      zone: "Centro",
+      address: "Calle 10 #8-15",
+      reference: "Frente al parque principal",
+      severity: "Alta",
+      wasteType: "Mixto",
+      notes: "Acumulacion desde hace 2 dias",
+      status: REPORT_STATUS.PENDING,
+      createdAt: "2026-03-21",
+      assignedRouteId: null,
+    },
+    {
+      id: 2,
+      zone: "Barrio Norte",
+      address: "Carrera 15 #42-30",
+      reference: "Al lado de la escuela",
+      severity: "Media",
+      wasteType: "Organico",
+      notes: "Contenedor desbordado",
+      status: REPORT_STATUS.REVIEW,
+      createdAt: "2026-03-21",
+      assignedRouteId: null,
+    },
+    {
+      id: 3,
+      zone: "San Miguel",
+      address: "Calle 5 #18-44",
+      reference: "Esquina tienda 24h",
+      severity: "Alta",
+      wasteType: "Voluminoso",
+      notes: "Muebles y bolsas grandes",
+      status: REPORT_STATUS.SCHEDULED,
+      createdAt: "2026-03-20",
+      assignedRouteId: 1,
+    },
+    {
+      id: 4,
+      zone: "El Lago",
+      address: "Av. Circunvalar #77-10",
+      reference: "Paradero ruta escolar",
+      severity: "Baja",
+      wasteType: "Reciclable",
+      notes: "Punto requiere vaciado preventivo",
+      status: REPORT_STATUS.SCHEDULED,
+      createdAt: "2026-03-22",
+      assignedRouteId: 2,
+    },
+  ],
+  routes: [
+    {
+      id: 1,
+      name: "Ruta Centro 01",
+      date: today,
+      shift: "Manana",
+      truck: "CAM-104",
+      driverId: "drv-1",
+      neighborhoods: "Centro - Mercado - San Miguel",
+      status: ROUTE_STATUS.PLANNED,
+      completedStopIds: [],
+      stops: [{ reportId: 3 }],
+    },
+    {
+      id: 2,
+      name: "Ruta Preventiva Lago",
+      date: today,
+      shift: "Tarde",
+      truck: "CAM-208",
+      driverId: "drv-2",
+      neighborhoods: "El Lago - Zona Escolar",
+      status: ROUTE_STATUS.PLANNED,
+      completedStopIds: [],
+      stops: [{ reportId: 4 }],
+    },
+  ],
+};
+
+module.exports = state;
